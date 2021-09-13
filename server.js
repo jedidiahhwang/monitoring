@@ -10,6 +10,7 @@ let rollbar = new Rollbar({
 
 const students = []; // Add this next line last
 const app = express();
+app.use(express.json()); // This is why rollbar gives you error, put this last
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
