@@ -8,11 +8,23 @@ let rollbar = new Rollbar({
     captureUnhandledRejections: true
 }) // Takes in an object
 
+const students = []; // Add this next line last
 const app = express();
+app.use(rollbar.errorHandler())
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
     rollbar.info("html file served successfully!");
+})
+
+// Create post request
+app.post("/api/student", (req, res) => {
+    const {name} = req.body;
+    name = name.trim();
+    students.push(name);
+
+    rollbar.log("Student added successfully", {author: "Jeddy", type: "Manual entry"})
+    res.status(200).send(students);
 })
 
 const port = process.env.PORT || 4545;
@@ -31,3 +43,4 @@ app.listen(port, () => {
 
 // 2) After a successful build in Heroku, npm i rollbar and import it
 // 3) Go to projects, "first project", tokens, create access token
+// 4) Setup rollbar as such above
