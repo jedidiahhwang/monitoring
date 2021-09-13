@@ -10,7 +10,6 @@ let rollbar = new Rollbar({
 
 const students = []; // Add this next line last
 const app = express();
-app.use(rollbar.errorHandler())
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
@@ -32,6 +31,8 @@ const port = process.env.PORT || 4545;
 // app.listen(4545, () => {
 //     console.log("They're taking the Hobbits to 4545!")
 // })
+
+app.use(rollbar.errorHandler());
 
 app.listen(port, () => {
     console.log(`They're taking the Hobbits to ${port}`)
