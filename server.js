@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 
 // Create post request
 app.post("/api/student", (req, res) => {
-    const {name} = req.body;
+    let {name} = req.body; // This needs to be let (used to be const)
     name = name.trim();
     students.push(name);
 
